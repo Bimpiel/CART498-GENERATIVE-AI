@@ -1,7 +1,7 @@
 # CART498-GENERATIVE-AI
 ## Assignment 2
 
-# P+7
+## P+7
 
 ### One must have a mind of your
 ### To regard the frost and the snow
@@ -19,7 +19,7 @@
 ### And, nothing himself, and
 ### Nothing that is not there and the nothing that does
 
-# P+13
+## P+13
 
 ### One must have a mind of its
 ### To regard the frost and the cold
