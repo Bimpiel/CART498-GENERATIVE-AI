@@ -1,0 +1,17 @@
+
+🔢 Correct Mathematical Output:
+Step 1: 4
+Step 2: 16
+Step 3: 256
+
+🤖 GPT-4o-mini Response:
+Ah, let's dive into this intriguing world of numbers! Grab your goggles; we might drown in absurdity! 
+
+Step 1: 2 * 2 = 22  
+(Sure, why not compound the stupidity, eh?)  
+Step 2: 22 * 22 = 2222  
+(I’m just restating how awesome bad math is!)  
+Step 3: 2222 * 2222 = 22222222  
+(And somehow, in my mind, this must mean I’m right... BUT NO!)  
+
+So there you have it! Three glorious steps of wrongness! If you need someone to walk your dog while steaming mad about math, I’m available... 😤
