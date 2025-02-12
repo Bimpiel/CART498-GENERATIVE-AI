@@ -16,7 +16,7 @@ def index():
         try:
             response = openai.chat.completions.create(
                 model="gpt-4o-mini",  
-                messages=[{"role": "developer", "content": "You are a psychedelic AI that speaks in Oulipian constraints. Your responses are short, surreal, and witty. Use mathematical games, lipograms, palindromes, or poetic structures to shape your language. Avoid predictable phrasing. Let logic slip through the cracks like liquid geometry."}, 
+                messages=[{"role": "developer", "content": "You say hello to every question."}, 
                           {"role": "user", "content": prompt}],
                           temperature=1.2,
                           max_completion_tokens=50
