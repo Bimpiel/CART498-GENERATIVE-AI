@@ -23,7 +23,7 @@ def index():
                 messages=[{"role": "system", "content": "You are an expert in Jungian dream analysis. Given the following dream description, provide a thoughtful interpretation based on Jungian archetypes, symbols, and the collective unconscious. Explain the possible meanings and psychological significance of the dream."}, 
                           {"role": "user", "content": prompt}],
                 temperature=1.2,
-                max_tokens=50
+                max_tokens=1000
             )
             result = response.choices[0].message.content
             
