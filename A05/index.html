@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fictional Animals Slideshow</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slideshow-container {
+            position: relative;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .slide {
+            display: none;
+        }
+
+        .slide img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .slide audio {
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .slide .text {
+            margin-top: 20px;
+            font-size: 20px;
+            font-style: italic;
+            color: #555;
+        }
+
+        .prev,
+        .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            user-select: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .prev:hover,
+        .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        .prev {
+            left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slideshow-container">
+        <!-- Slides will be dynamically inserted here -->
+    </div>
+
+    <script>
+        // Function to dynamically generate the animals array
+        function getAnimalData() {
+            const animals = [];
+            const imageFiles = Array.from({ length: 50 }, (_, i) => `images/fictional_animal_${i}.png`); // Adjust the number based on your files
+            const soundFiles = Array.from({ length: 50 }, (_, i) => `sounds/Animal_${i}_sound.wav`); // Adjust the number based on your files
+
+            imageFiles.forEach((image, i) => {
+                if (soundFiles[i]) { // Ensure there's a corresponding sound file
+                    animals.push({
+                        image: image,
+                        sound: soundFiles[i]
+                    });
+                }
+            });
+
+            return animals;
+        }
+
+        // Use the dynamically generated animals array
+        const animals = getAnimalData();
+
+        // Load the animal sounds text file
+        fetch("text/animal_sounds.txt")
+            .then(response => response.text())
+            .then(text => {
+                const lines = text.split("\n").filter(line => line.trim() !== ""); // Split into lines and remove empty lines
+                let slideIndex = 0;
+
+                // Function to display a slide
+                function showSlide(index) {
+                    const slides = document.querySelectorAll(".slide");
+                    if (index >= slides.length) slideIndex = 0;
+                    if (index < 0) slideIndex = slides.length - 1;
+                    slides.forEach(slide => slide.style.display = "none");
+                    slides[slideIndex].style.display = "block";
+                }
+
+                // Function to create slides
+                function createSlides() {
+                    const container = document.querySelector(".slideshow-container");
+                    animals.forEach((animal, i) => {
+                        const slide = document.createElement("div");
+                        slide.classList.add("slide");
+
+                        // Add image
+                        const img = document.createElement("img");
+                        img.src = animal.image;
+                        img.alt = `Fictional Animal ${i}`;
+                        slide.appendChild(img);
+
+                        // Add audio
+                        const audio = document.createElement("audio");
+                        audio.controls = true;
+                        const source = document.createElement("source");
+                        source.src = animal.sound;
+                        source.type = "audio/wav";
+                        audio.appendChild(source);
+                        slide.appendChild(audio);
+
+                        // Add random text
+                        const text = document.createElement("div");
+                        text.classList.add("text");
+                        text.textContent = lines[Math.floor(Math.random() * lines.length)]; // Random line from the text file
+                        slide.appendChild(text);
+
+                        container.appendChild(slide);
+                    });
+
+                    // Show the first slide
+                    showSlide(slideIndex);
+                }
+
+                // Create slides
+                createSlides();
+
+                // Add navigation buttons
+                const prevButton = document.createElement("a");
+                prevButton.classList.add("prev");
+                prevButton.innerHTML = "&#10094;"; // Left arrow
+                prevButton.onclick = () => {
+                    slideIndex--;
+                    showSlide(slideIndex);
+                };
+
+                const nextButton = document.createElement("a");
+                nextButton.classList.add("next");
+                nextButton.innerHTML = "&#10095;"; // Right arrow
+                nextButton.onclick = () => {
+                    slideIndex++;
+                    showSlide(slideIndex);
+                };
+
+                document.querySelector(".slideshow-container").appendChild(prevButton);
+                document.querySelector(".slideshow-container").appendChild(nextButton);
+            })
+            .catch(error => console.error("Error loading animal sounds text file:", error));
+    </script>
+</body>
+
+</html>
